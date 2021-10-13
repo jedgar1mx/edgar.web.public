@@ -1,3 +1,3 @@
 #!/bin/bash
-cd /home/ec2-user/server/src
+cd /home/ec2-user/server
 yarn start
