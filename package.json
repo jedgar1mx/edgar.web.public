@@ -4,8 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build && next export",
-    "start": "next start -H 0.0.0.0 -p ${PORT:-8080}",
+    "build": "next build",
+    "start": "next start -H 0.0.0.0 -p ${PORT:-80}",
     "lint": "next lint"
   },
   "dependencies": {
