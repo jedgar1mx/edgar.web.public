@@ -1,5 +1,6 @@
 import Head from 'next/head'
 import Image from 'next/image'
+import Link from 'next/link'
 import styles from '../styles/Home.module.css'
 
 export default function Home() {
@@ -50,15 +51,16 @@ export default function Home() {
             </p>
           </a>
 
-          <a
-            href="/blog"
-            className={styles.card}
-          >
-            <h2>Articles &rarr;</h2>
-            <p>
-              Testing articles.
-            </p>
-          </a>
+          <Link href="/blog">
+            <a
+              className={styles.card}
+            >
+              <h2>Articles &rarr;</h2>
+              <p>
+                Testing articles.
+              </p>
+            </a>
+          </Link>
         </div>
       </main>
 
