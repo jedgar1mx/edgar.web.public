@@ -1,4 +1,3 @@
 #!/bin/bash
-cd /home/bitnami/htdocs
+cd /home/ec2-user/server
 yarn install
-yarn build
