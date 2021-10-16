@@ -67,7 +67,7 @@ function Blog({ posts }) {
 // This function gets called at build time
 export async function getStaticProps() {
   // Call an external API endpoint to get posts
-  const res = await fetch('http://18.191.240.66/jsonapi/node/article')
+  const res = await fetch('http://data.jedgar1mx.com/jsonapi/node/article')
   const posts = await res.json()
 
   console.log(posts);
