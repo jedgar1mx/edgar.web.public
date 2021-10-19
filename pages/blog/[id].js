@@ -6,9 +6,11 @@ import CssBaseline from '@mui/material/CssBaseline';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Header from '../page_sections/Header';
+import PageBreadcrumbs from '../page_sections/PageBreadcrumbs';
 import Main from '../page_sections/Main';
 import Footer from '../page_sections/Footer';
 import { Markup } from 'interweave';
+import moment from 'moment';
 
 const sections = [
   { title: 'Technology', url: '#' },
@@ -47,13 +49,14 @@ export default function Post({ post }) {
       <CssBaseline />
       <Container maxWidth="lg">
         <Header title="Edgar Web" sections={sections} />
+        <PageBreadcrumbs></PageBreadcrumbs>
         <main>
             <img style={{ width: '100%' }} src={`http://data.jedgar1mx.com${post.included[0].attributes.uri.url}`} alt={post.included[0].attributes.filename} />
             <Typography variant="h5" component="div">
               {post.data.title}
             </Typography>
             <Typography variant="small" component="div">
-              By {post.included[1].attributes.display_name}
+              By {post.included[1].attributes.display_name} | {moment(post.data.attributes.created).format("MMM Do, YYYY")}
             </Typography>
             <Markup content={post.data.attributes.body.processed} />
         </main>

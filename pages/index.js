@@ -5,6 +5,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Header from './page_sections/Header';
+import PageBreadcrumbs from './page_sections/PageBreadcrumbs';
 import Main from './page_sections/Main';
 import MainFeaturedPost from './page_components/MainPost';
 import Footer from './page_sections/Footer';
@@ -39,13 +40,28 @@ const theme = createTheme(
   }
 );
   
+const imageUrlFromPost = (post, assets) => {
+  return assets?.find((asset) => asset.id == post.relationships.field_image.data.id)
+}
 
-export default function Home() {
+export default function Home({ posts }) {
+  console.log(posts.data[0])
+  let image = imageUrlFromPost(posts.data[0], posts.included)
+  console.log(image)
+  let mainFeaturedPost = {
+    title: posts.data[0].attributes.title,
+    description: posts.data[0].attributes.body.summary,
+    image: `http://data.jedgar1mx.com${image.attributes.uri.url}`,
+    imageText: image.attributes.filename,
+    link: posts.data[0].id,
+    linkText: 'Continue reading…',
+  }
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <Container maxWidth="lg">
         <Header title="Edgar Web" sections={sections} />
+        <PageBreadcrumbs></PageBreadcrumbs>
         <main>
           <MainFeaturedPost post={mainFeaturedPost} />
           <Link href="/blog">
@@ -64,4 +80,19 @@ export default function Home() {
       />
     </ThemeProvider>
   )
+}
+
+export async function getStaticProps() {
+  // Call an external API endpoint to get posts
+  const res = await fetch('http://data.jedgar1mx.com/jsonapi/node/article?include=field_image,uid&sort=created')
+  const posts = await res.json()
+
+  console.log(posts);
+  // By returning { props: { posts } }, the Blog component
+  // will receive `posts` as a prop at build time
+  return {
+    props: {
+      posts,
+    },
+  }
 }

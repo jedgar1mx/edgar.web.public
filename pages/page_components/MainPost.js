@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
-import Link from '@mui/material/Link';
+import Link from 'next/link';
 import Box from '@mui/material/Box';
 
 function MainPost(props) {
@@ -16,10 +16,6 @@ function MainPost(props) {
         backgroundColor: 'grey.800',
         color: '#fff',
         mb: 4,
-        backgroundSize: '50%',
-        backgroundRepeat: 'no-repeat',
-        backgroundPosition: 'left',
-        backgroundImage: `url(${post.image})`,
       }}
     >
       {/* Increase the priority of the hero background image */}
@@ -31,11 +27,13 @@ function MainPost(props) {
           bottom: 0,
           right: 0,
           left: 0,
-          backgroundColor: 'rgba(0,0,0,.6)',
+          backgroundColor: 'rgba(0,0,0,.3)',
         }}
       />
       <Grid container>
-        <Grid item md={6}></Grid>
+        <Grid item md={6}>
+          <img style={{ width: '100%' }} src={post.image} alt={post.imageText} />
+        </Grid>
         <Grid item md={6}>
           <Box
             sx={{
@@ -50,8 +48,8 @@ function MainPost(props) {
             <Typography variant="h5" color="inherit" paragraph>
               {post.description}
             </Typography>
-            <Link variant="subtitle1" href="#">
-              {post.linkText}
+            <Link href={`/blog/${post.link}`}>
+              <a>{post.linkText}</a>
             </Link>
           </Box>
         </Grid>
