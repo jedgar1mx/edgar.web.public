@@ -1,8 +1,8 @@
 import Link from "next/link";
 import { Box, Button, Card, CardActions, CardContent, Container, Grid, Typography } from "@mui/material";
-import Header from "./page_sections/Header";
-import MainFeaturedPost from "./page_components/MainPost";
-import Footer from "./page_sections/Footer";
+import Header from "../page_sections/Header";
+import MainFeaturedPost from "../page_components/MainPost";
+import Footer from "../page_sections/Footer";
 
 const imageUrlFromPost = (post, assets) => {
   return assets?.find(
@@ -42,7 +42,7 @@ export default function Home({ posts }) {
                 </Typography>
               </CardContent>
               <CardActions>
-                <Link href={`/blog/${post.id}`}>
+                <Link href={`/blog/${post.id}`} passHref>
                   <Button size="small">Learn More</Button>
                 </Link>
               </CardActions>

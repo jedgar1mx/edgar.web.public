@@ -1,8 +1,8 @@
-import * as React from "react";
-import { Box, Card, CardActions, CardContent, Container, Button, Typography, Grid } from "@mui/material";
-import Link from "next/link";
-import Header from "./page_sections/Header";
-import Footer from "./page_sections/Footer";
+import * as React from "react"
+import { Box, Card, CardActions, CardContent, Container, Button, Typography, Grid } from "@mui/material"
+import Link from "next/link"
+import Header from "../page_sections/Header"
+import Footer from "../page_sections/Footer"
 
 function Blog({ posts }) {
   return (
@@ -26,7 +26,7 @@ function Blog({ posts }) {
                 </Typography>
               </CardContent>
               <CardActions>
-                <Link href={`/blog/${post.id}`}>
+                <Link href={`/blog/${post.id}`} passHref>
                   <Button size="small">Learn More</Button>
                 </Link>
               </CardActions>

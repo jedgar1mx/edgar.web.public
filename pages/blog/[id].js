@@ -1,8 +1,9 @@
-import { Box, Typography, Container } from "@mui/material";
-import Header from "../page_sections/Header";
-import Footer from "../page_sections/Footer";
-import { Markup } from "interweave";
-import moment from "moment";
+import Image from "next/image"
+import { Box, Typography, Container } from "@mui/material"
+import { Markup } from "interweave"
+import moment from "moment"
+import Header from "../../page_sections/Header"
+import Footer from "../../page_sections/Footer"
 
 export default function Post({ post }) {
   return (
@@ -10,18 +11,18 @@ export default function Post({ post }) {
       <Container maxWidth="lg" sx={{ minHeight: "90vh" }}>
         <Header title="Edgar Web" />
         <main>
-          <Box sx={{ mt: 2 }}>
-          <img
-            style={{ width: "100%" }}
-            src={`http://data.jedgar1mx.com${post.included[0].attributes.uri.url}`}
-            alt={post.included[0].attributes.filename}
-          />
+          <Box sx={{ mt: 2 , position: "relative", width: "100%", height: "25em"}}>
+            <Image 
+              src={`http://data.jedgar1mx.com${post.included[0].attributes.uri.url}`}
+              alt={post.included[0].attributes.filename}
+              layout="fill"
+            />
           </Box>
           <Typography variant="h5" component="div">
             {post.data.title}
           </Typography>
           <Typography variant="caption" component="div">
-            By {post.included[1].attributes.display_name} |{" "}
+            By {post.included[1].attributes.display_name} |
             {moment(post.data.attributes.created).format("MMM Do, YYYY")}
           </Typography>
           <Markup content={post.data.attributes.body.processed} />

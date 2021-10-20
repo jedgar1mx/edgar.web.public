@@ -2,6 +2,7 @@ import * as React from "react";
 import PropTypes from "prop-types";
 import { Paper, Typography, Grid, Box } from "@mui/material";
 import Link from "next/link";
+import Image from "next/image"
 
 function MainPost(props) {
   const { post } = props;
@@ -27,11 +28,11 @@ function MainPost(props) {
         }}
       />
       <Grid container>
-        <Grid item md={6}>
-          <img
-            style={{ width: "100%" }}
+        <Grid item md={6} sx={{ position: "relative", width: "100%"}}>
+          <Image 
             src={post.image}
             alt={post.imageText}
+            layout="fill"
           />
         </Grid>
         <Grid item md={6}>
