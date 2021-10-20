@@ -1,28 +1,20 @@
-import * as React from 'react';
-import Typography from '@mui/material/Typography';
-import Breadcrumbs from '@mui/material/Breadcrumbs';
-import Link from 'next/link';
-
+import * as React from "react";
+import { Typography, Breadcrumbs } from "@mui/material";
+import Link from "next/link";
+import { useRouter } from "next/router";
 
 export default function PageBreadcrumbs() {
+  const router = useRouter();
   return (
     <Breadcrumbs aria-label="breadcrumb">
-      <Link
-        href="/"
-      >
-        <a>
-        Home
-        </a>
+      <Link href="/">
+        <a>Home</a>
       </Link>
-      <Link
-        href="/blog"
-      >
-        <a>
-        Blog
-        </a>
+      <Link href="/blog">
+        <a>Blog</a>
       </Link>
       <Typography
-        sx={{ display: 'flex', alignItems: 'center' }}
+        sx={{ display: "flex", alignItems: "center" }}
         color="text.primary"
       >
         Page

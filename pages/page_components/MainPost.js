@@ -1,10 +1,7 @@
-import * as React from 'react';
-import PropTypes from 'prop-types';
-import Paper from '@mui/material/Paper';
-import Typography from '@mui/material/Typography';
-import Grid from '@mui/material/Grid';
-import Link from 'next/link';
-import Box from '@mui/material/Box';
+import * as React from "react";
+import PropTypes from "prop-types";
+import { Paper, Typography, Grid, Box } from "@mui/material";
+import Link from "next/link";
 
 function MainPost(props) {
   const { post } = props;
@@ -12,40 +9,48 @@ function MainPost(props) {
   return (
     <Paper
       sx={{
-        position: 'relative',
-        backgroundColor: 'grey.800',
-        color: '#fff',
+        position: "relative",
+        backgroundColor: "#000",
+        color: "#fff",
         mb: 4,
+        mt: 2,
       }}
     >
-      {/* Increase the priority of the hero background image */}
-      {<img style={{ display: 'none' }} src={post.image} alt={post.imageText} />}
       <Box
         sx={{
-          position: 'absolute',
+          position: "absolute",
           top: 0,
           bottom: 0,
           right: 0,
           left: 0,
-          backgroundColor: 'rgba(0,0,0,.3)',
+          backgroundColor: "primary",
         }}
       />
       <Grid container>
         <Grid item md={6}>
-          <img style={{ width: '100%' }} src={post.image} alt={post.imageText} />
+          <img
+            style={{ width: "100%" }}
+            src={post.image}
+            alt={post.imageText}
+          />
         </Grid>
         <Grid item md={6}>
           <Box
             sx={{
-              position: 'relative',
+              position: "relative",
               p: { xs: 3, md: 6 },
               pr: { md: 0 },
             }}
           >
-            <Typography component="h1" variant="h3" color="inherit" gutterBottom>
+            <Typography
+              component="h1"
+              variant="h4"
+              color="inherit"
+              gutterBottom
+            >
               {post.title}
             </Typography>
-            <Typography variant="h5" color="inherit" paragraph>
+            <Typography variant="h6" color="inherit" paragraph>
               {post.description}
             </Typography>
             <Link href={`/blog/${post.link}`}>
