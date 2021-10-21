@@ -1,7 +1,6 @@
 import * as React from "react";
 import PropTypes from "prop-types";
 import Logo from "../page_components/Logo";
-import SearchIcon from "@mui/icons-material/Search";
 import {
   Grid,
   Box,
@@ -57,6 +56,45 @@ function Header(props) {
                   {section.title}
                 </Link>
               ))}
+              <Link
+                color="primary"
+                noWrap
+                key="github"
+                variant="body2"
+                href="https://github.com/jedgar1mx"
+                sx={{ p: 1, flexShrink: 0 }}
+                align="right"
+                target="_blank"
+                rel="noreferrer"
+              >
+                Github
+              </Link>
+              <Link
+                color="primary"
+                noWrap
+                key="twitter"
+                variant="body2"
+                href="https://twitter.com/jedgar1mx"
+                sx={{ p: 1, flexShrink: 0 }}
+                align="right"
+                target="_blank"
+                rel="noreferrer"
+              >
+                Twitter
+              </Link>
+              <Link
+                color="primary"
+                noWrap
+                key="drupal"
+                variant="body2"
+                href="https://www.drupal.org/u/jedgar1mx"
+                sx={{ p: 1, flexShrink: 0 }}
+                align="right"
+                target="_blank"
+                rel="noreferrer"
+              >
+                Drupal
+              </Link>
             </Box>
           </Grid>
         </Grid>

@@ -47,8 +47,7 @@ export default function Post({ post }) {
             {post.data.title}
           </Typography>
           <Typography variant="caption" component="div">
-            By {post.included[1].attributes.display_name} |
-            {moment(post.data.attributes.created).format("MMM Do, YYYY")}
+            {moment(post.data.attributes.created).format("MMM Do, YYYY")} by {post.included[1].attributes.display_name}
           </Typography>
           <Markup content={post.data.attributes.body.processed} />
         </main>

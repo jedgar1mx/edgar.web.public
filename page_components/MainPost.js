@@ -47,7 +47,7 @@ function MainPost(props) {
         }}
       />
       <Grid container>
-        <Grid item md={6} sx={{ position: "relative", width: "100%" }}>
+        <Grid item md={6} sx={{ position: "relative", width: "100%", minHeight: 300 }}>
           <Image
             src={post.image}
             alt={post.imageText}
