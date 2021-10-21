@@ -26,7 +26,7 @@ export default function Home({ posts }) {
         <Header title="Edgar Web" />
         <main>
           <MainFeaturedPost post={mainFeaturedPost} />
-          <Typography variant="h5" component="h3" sx={{ mt: 2, mb: 2 }}>
+          <Typography variant="h5" component="h2" sx={{ mt: 2, mb: 2 }}>
             Latest Posts
           </Typography>
           <Grid container>
