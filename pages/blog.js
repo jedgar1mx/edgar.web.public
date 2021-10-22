@@ -1,5 +1,5 @@
 import * as React from "react"
-import { Box, Card, CardActions, CardContent, Container, Button, Typography, Grid } from "@mui/material"
+import { Box, Card, CardActionArea, CardContent, Container, Button, Typography, Grid } from "@mui/material"
 import Link from "next/link"
 import Header from "../page_sections/Header"
 import Footer from "../page_sections/Footer"
@@ -13,25 +13,27 @@ function Blog({ posts }) {
           <Typography variant="h4" component="h1" sx={{ mt: 2, mb: 2 }}>
             Past Posts
           </Typography>
-          <Grid container>
+          <Grid container spacing={2} alignItems="stretch">
           {posts.data.map((post) => (
-            <Grid key={post.id} item xs={12} md={4} xl={3}>
-            <Card sx={{ minWidth: 275 }}>
-              <CardContent>
-                <Typography variant="h6" component="div">
-                  {post.attributes.title}
-                </Typography>
-                <Typography variant="body2">
-                  {post.attributes.body.summary}
-                </Typography>
-              </CardContent>
-              <CardActions>
-                <Link href={`/blog/${post.id}`} passHref>
-                  <Button size="small">Learn More</Button>
-                </Link>
-              </CardActions>
-            </Card>
-            </Grid>
+            <Link key={post.id} href={`/blog/${post.id}`} passHref>
+              <Grid item xs={12} md={4} xl={3}>
+                <Card sx={{ minWidth: 275, borderRadius: 0 }}>
+                  <CardActionArea>
+                    <CardContent sx={{ minHeight: 225 }}>
+                      <Typography variant="h5" component="div" sx={{ borderLeft: 4, borderColor: "secondary.main", pl: 1, mb: 2 }}>
+                        {post.attributes.title}
+                      </Typography>
+                      <Typography variant="body1">
+                        {post.attributes.body.summary}
+                      </Typography>
+                      <Typography variant="button" sx={{ mt: 2 }}>
+                        Continue reading...
+                      </Typography>
+                    </CardContent>
+                  </CardActionArea>
+                </Card>
+              </Grid>
+            </Link>
           ))}
           </Grid>
         </main>

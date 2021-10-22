@@ -1,8 +1,9 @@
-import * as React from "react";
-import PropTypes from "prop-types";
-import { Paper, Typography, Grid, Box } from "@mui/material";
-import Link from "next/link";
-import Image from "next/image";
+import * as React from "react"
+import PropTypes from "prop-types"
+import { Paper, Typography, Grid, Box } from "@mui/material"
+import Link from "next/link"
+import Image from "next/image"
+import styles from './MainPost.module.css'
 
 const shimmer = (w, h) => `
 <svg width="${w}" height="${h}" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -34,6 +35,7 @@ function MainPost(props) {
         color: "#fff",
         mb: 4,
         mt: 2,
+        borderRadius: 0
       }}
     >
       <Box
@@ -47,7 +49,7 @@ function MainPost(props) {
         }}
       />
       <Grid container>
-        <Grid item md={6} sx={{ position: "relative", width: "100%", minHeight: 300 }}>
+        <Grid item md={5} sx={{ position: "relative", width: "100%", minHeight: 300 }}>
           <Image
             src={post.image}
             alt={post.imageText}
@@ -58,7 +60,7 @@ function MainPost(props) {
             )}`}
           />
         </Grid>
-        <Grid item md={6}>
+        <Grid item md={7}>
           <Box
             sx={{
               position: "relative",
@@ -77,8 +79,10 @@ function MainPost(props) {
             <Typography variant="h6" color="inherit" paragraph>
               {post.description}
             </Typography>
-            <Link href={`/blog/${post.link}`}>
-              <a>{post.linkText}</a>
+            <Link href={`/blog/${post.link}`} passHref>
+              <a className={styles.secondaryLink}>
+                {post.linkText}
+              </a>
             </Link>
           </Box>
         </Grid>

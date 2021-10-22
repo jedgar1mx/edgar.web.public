@@ -22,7 +22,7 @@ function Header(props) {
 
   return (
     <React.Fragment>
-      <Toolbar sx={{ borderBottom: 1, borderColor: "secondary" }}>
+      <Toolbar sx={{ borderBottom: 1, borderColor: "primary" }}>
         <Grid container spacing={0.5}>
           <Grid item md={1}>
             <Logo />

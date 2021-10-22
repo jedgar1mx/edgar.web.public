@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Box, Button, Card, CardActions, CardContent, Container, Grid, Typography } from "@mui/material";
+import { Box, Card, CardActionArea , CardContent, Container, Grid, Typography } from "@mui/material";
 import Header from "../page_sections/Header";
 import MainFeaturedPost from "../page_components/MainPost";
 import Footer from "../page_sections/Footer";
@@ -22,32 +22,31 @@ export default function Home({ posts }) {
   };
   return (
     <Box>
-      <Container maxWidth="lg" sx={{ minHeight: "90vh" }}>
+      <Container maxWidth="lg" sx={{ minHeight: "90vh", mb: 2 }}>
         <Header title="Edgar Web" />
         <main>
           <MainFeaturedPost post={mainFeaturedPost} />
-          <Typography variant="h5" component="h2" sx={{ mt: 2, mb: 2 }}>
-            Latest Posts
-          </Typography>
           <Grid container>
           {posts.data.slice(1).map((post) => (
-            <Grid key={post.id} item xs={12} md={4} xl={3}>
-            <Card sx={{ minWidth: 275 }}>
-              <CardContent>
-                <Typography variant="h5" component="div">
-                  {post.attributes.title}
-                </Typography>
-                <Typography variant="body2">
-                  {post.attributes.body.summary}
-                </Typography>
-              </CardContent>
-              <CardActions>
-                <Link href={`/blog/${post.id}`} passHref>
-                  <Button size="small">Learn More</Button>
-                </Link>
-              </CardActions>
-            </Card>
-            </Grid>
+            <Link key={post.id} href={`/blog/${post.id}`} passHref>
+              <Grid item xs={12} md={4} xl={3}>
+                <Card sx={{ minWidth: 275, borderRadius: 0 }}>
+                  <CardActionArea>
+                    <CardContent sx={{ minHeight: 225 }}>
+                      <Typography variant="h5" component="div" sx={{ borderLeft: 4, borderColor: "secondary.main", pl: 1, mb: 2 }}>
+                        {post.attributes.title}
+                      </Typography>
+                      <Typography variant="body1">
+                        {post.attributes.body.summary}
+                      </Typography>
+                      <Typography variant="button" sx={{ mt: 2 }}>
+                        Continue reading...
+                      </Typography>
+                    </CardContent>
+                  </CardActionArea>
+                </Card>
+              </Grid>
+            </Link>
           ))}
           </Grid>
         </main>
@@ -69,6 +68,7 @@ export async function getStaticProps() {
   return {
     props: {
       posts,
+      revalidate: 60,
     },
   };
 }

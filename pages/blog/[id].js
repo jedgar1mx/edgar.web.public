@@ -43,11 +43,11 @@ export default function Post({ post }) {
               )}`}
             />
           </Box>
-          <Typography variant="h5" component="div">
-            {post.data.title}
+          <Typography variant="h4" component="h1">
+            {post.data.attributes.title}
           </Typography>
           <Typography variant="caption" component="div">
-            {moment(post.data.attributes.created).format("MMM Do, YYYY")} by {post.included[1].attributes.display_name}
+            {post.included[1].attributes.display_name} on {moment(post.data.attributes.created).format("MMM Do, YYYY")} 
           </Typography>
           <Markup content={post.data.attributes.body.processed} />
         </main>
@@ -84,5 +84,8 @@ export async function getStaticProps({ params }) {
   );
   const post = await res.json();
   // Pass post data to the page via props
-  return { props: { post } };
+  return { 
+    props: { post }, 
+    revalidate: 60,
+  };
 }
