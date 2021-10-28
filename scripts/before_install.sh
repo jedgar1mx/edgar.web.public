@@ -1,2 +1,2 @@
 #!/bin/bash
-supo apt update
+sudo apt update
