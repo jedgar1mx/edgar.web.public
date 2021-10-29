@@ -1,9 +1,10 @@
-import Image from "next/image";
-import { Box, Typography, Container } from "@mui/material";
-import { Markup } from "interweave";
-import moment from "moment";
-import Header from "../../page_sections/Header";
-import Footer from "../../page_sections/Footer";
+import Image from "next/image"
+import Head from "next/head"
+import { Box, Typography, Container } from "@mui/material"
+import { Markup } from "interweave"
+import moment from "moment"
+import Header from "../../page_sections/Header"
+import Footer from "../../page_sections/Footer"
 
 const shimmer = (w, h) => `
 <svg width="${w}" height="${h}" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -27,6 +28,48 @@ const toBase64 = (str) =>
 export default function Post({ post }) {
   return (
     <Box>
+      <Head>
+        <title>Edgar Web | {post.data.attributes.title}</title>
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+        <link
+          rel="apple-touch-icon"
+          sizes="76x76"
+          href="/apple-touch-icon.png"
+        />
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="32x32"
+          href="/favicon-32x32.png"
+        />
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="16x16"
+          href="/favicon-16x16.png"
+        />
+        <link rel="manifest" href="/site.webmanifest" />
+        <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5" />
+        <meta name="msapplication-TileColor" content="#da532c" />
+        <meta name="theme-color" content="#ffffff"></meta>
+        <meta name="description" content={post.data.attributes.body.summary} />
+
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content={post.data.attributes.title} />
+        <meta property="og:image" content="/Logo.png" />
+        <meta
+          property="og:description"
+          content={post.data.attributes.body.summary}
+        />
+
+        <meta property="twitter:card" content="summary_large_image" />
+        <meta property="twitter:title" content={post.data.attributes.title} />
+        <meta property="twitter:image" content="/Logo.png" />
+        <meta
+          property="twitter:description"
+          content={post.data.attributes.body.summary}
+        />
+      </Head>
       <Container maxWidth="lg" sx={{ minHeight: "90vh" }}>
         <Header title="Edgar Web" />
         <main>
@@ -47,7 +90,8 @@ export default function Post({ post }) {
             {post.data.attributes.title}
           </Typography>
           <Typography variant="caption" component="div">
-            {post.included[1].attributes.display_name} on {moment(post.data.attributes.created).format("MMM Do, YYYY")} 
+            {post.included[1].attributes.display_name} on{" "}
+            {moment(post.data.attributes.created).format("MMM Do, YYYY")}
           </Typography>
           <Markup content={post.data.attributes.body.processed} />
         </main>
@@ -84,8 +128,8 @@ export async function getStaticProps({ params }) {
   );
   const post = await res.json();
   // Pass post data to the page via props
-  return { 
-    props: { post }, 
+  return {
+    props: { post },
     revalidate: 60,
   };
 }
