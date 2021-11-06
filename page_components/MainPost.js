@@ -1,9 +1,9 @@
-import * as React from "react"
-import PropTypes from "prop-types"
-import { Paper, Typography, Grid, Box } from "@mui/material"
-import Link from "next/link"
-import Image from "next/image"
-import styles from './MainPost.module.css'
+import * as React from "react";
+import PropTypes from "prop-types";
+import { Paper, Typography, Grid, Box } from "@mui/material";
+import Link from "next/link";
+import Image from "next/image";
+import styles from "./MainPost.module.css";
 
 const shimmer = (w, h) => `
 <svg width="${w}" height="${h}" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -35,7 +35,7 @@ function MainPost(props) {
         color: "#fff",
         mb: 4,
         mt: 2,
-        borderRadius: 0
+        borderRadius: 0,
       }}
     >
       <Box
@@ -48,45 +48,53 @@ function MainPost(props) {
           backgroundColor: "primary",
         }}
       />
-      <Grid container>
-        <Grid item md={5} sx={{ position: "relative", width: "100%", minHeight: 300 }}>
-          <Image
-            src={post.image}
-            alt={post.imageText}
-            layout="fill"
-            placeholder="blur"
-            blurDataURL={`data:image/svg+xml;base64,${toBase64(
-              shimmer(700, 475)
-            )}`}
-          />
-        </Grid>
-        <Grid item md={7}>
-          <Box
-            sx={{
-              position: "relative",
-              p: { xs: 3, md: 6 },
-              pr: { md: 0 },
-            }}
-          >
-            <Typography
-              component="h1"
-              variant="h4"
-              color="inherit"
-              gutterBottom
+
+      <Link href={`/blog/${post.link}`} passHref>
+        <a className={styles.MainPost}>
+          <Grid container alignItems="stretch">
+            <Grid
+              item
+              md={5}
+              sx={{ position: "relative", width: "100%", minHeight: 300 }}
             >
-              {post.title}
-            </Typography>
-            <Typography variant="h6" color="inherit" paragraph>
-              {post.description}
-            </Typography>
-            <Link href={`/blog/${post.link}`} passHref>
-              <a className={styles.secondaryLink}>
-                {post.linkText}
-              </a>
-            </Link>
-          </Box>
-        </Grid>
-      </Grid>
+              <Image
+                src={post.image}
+                alt={post.imageText}
+                layout="fill"
+                placeholder="blur"
+                blurDataURL={`data:image/svg+xml;base64,${toBase64(
+                  shimmer(700, 475)
+                )}`}
+              />
+            </Grid>
+            <Grid item md={7}>
+              <Box
+                className={styles.HoverEffect}
+                sx={{
+                  position: "relative",
+                  p: { xs: 3, md: 6 },
+                  height: "100%",
+                }}
+              >
+                <Typography
+                  component="h1"
+                  variant="h4"
+                  color="inherit"
+                  gutterBottom
+                >
+                  {post.title}
+                </Typography>
+                <Typography variant="h6" color="inherit" paragraph>
+                  {post.description}
+                </Typography>
+                <Typography variant="body1" color="secondary.main">
+                  {post.linkText}
+                </Typography>
+              </Box>
+            </Grid>
+          </Grid>
+        </a>
+      </Link>
     </Paper>
   );
 }

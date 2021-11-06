@@ -53,7 +53,7 @@ function Blog({ posts }) {
         <meta property="twitter:image" content="/Logo.png" />
         <meta property="twitter:description" content="The Idea Vault." />
       </Head>
-      <Container maxWidth="lg" sx={{ minHeight: "90vh" }}>
+      <Container maxWidth="lg" sx={{ minHeight: "90vh", mb: 2 }}>
         <Header title="Edgar Web" />
         <main>
           <Typography variant="h4" component="h1" sx={{ mt: 2, mb: 2 }}>
@@ -102,7 +102,7 @@ function Blog({ posts }) {
 export async function getStaticProps() {
   // Call an external API endpoint to get posts
   const res = await fetch(
-    "http://data.jedgar1mx.com/jsonapi/node/article?page[limit]=12"
+    "http://data.jedgar1mx.com/jsonapi/node/article?page[limit]=12&sort=-created"
   );
   const posts = await res.json();
 

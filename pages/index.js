@@ -1,5 +1,5 @@
-import Head from "next/head"
-import Link from "next/link"
+import Head from "next/head";
+import Link from "next/link";
 import {
   Box,
   Card,
@@ -8,10 +8,10 @@ import {
   Container,
   Grid,
   Typography,
-} from "@mui/material"
-import Header from "../page_sections/Header"
-import MainFeaturedPost from "../page_components/MainPost"
-import Footer from "../page_sections/Footer"
+} from "@mui/material";
+import Header from "../page_sections/Header";
+import MainFeaturedPost from "../page_components/MainPost";
+import Footer from "../page_sections/Footer";
 
 const imageUrlFromPost = (post, assets) => {
   return assets?.find(
@@ -80,7 +80,7 @@ export default function Home({ posts }) {
         <Header title="Edgar Web" />
         <main>
           <MainFeaturedPost post={mainFeaturedPost} />
-          <Grid container>
+          <Grid container spacing={2}>
             {posts.data.slice(1).map((post) => (
               <Link key={post.id} href={`/blog/${post.id}`} passHref>
                 <Grid item xs={12} md={4} xl={3}>
@@ -122,7 +122,7 @@ export default function Home({ posts }) {
 export async function getStaticProps() {
   // Call an external API endpoint to get posts
   const res = await fetch(
-    "http://data.jedgar1mx.com/jsonapi/node/article?page[limit]=5&include=field_image,uid&sort=created"
+    "http://data.jedgar1mx.com/jsonapi/node/article?page[limit]=5&include=field_image,uid&sort=-created"
   );
   const posts = await res.json();
 
