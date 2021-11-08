@@ -1,8 +1,8 @@
-import * as React from "react"
-import Head from "next/head"
-import { Box, Container, Typography } from "@mui/material"
-import Header from "../page_sections/Header"
-import Footer from "../page_sections/Footer"
+import * as React from "react";
+import Head from "next/head";
+import { Box, Container, Typography } from "@mui/material";
+import Header from "../page_sections/Header";
+import Footer from "../page_sections/Footer";
 
 function About() {
   return (

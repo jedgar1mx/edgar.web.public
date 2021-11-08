@@ -1,5 +1,5 @@
-import * as React from "react"
-import Head from "next/head"
+import * as React from "react";
+import Head from "next/head";
 import {
   Box,
   Card,
@@ -10,9 +10,9 @@ import {
   Typography,
   Grid,
 } from "@mui/material";
-import Link from "next/link"
-import Header from "../page_sections/Header"
-import Footer from "../page_sections/Footer"
+import Link from "next/link";
+import Header from "../page_sections/Header";
+import Footer from "../page_sections/Footer";
 
 function Blog({ posts }) {
   return (

@@ -1,10 +1,10 @@
-import Image from "next/image"
-import Head from "next/head"
-import { Box, Typography, Container } from "@mui/material"
-import { Markup } from "interweave"
-import moment from "moment"
-import Header from "../../page_sections/Header"
-import Footer from "../../page_sections/Footer"
+import Image from "next/image";
+import Head from "next/head";
+import { Box, Typography, Container } from "@mui/material";
+import { Markup } from "interweave";
+import moment from "moment";
+import Header from "../../page_sections/Header";
+import Footer from "../../page_sections/Footer";
 
 const shimmer = (w, h) => `
 <svg width="${w}" height="${h}" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
