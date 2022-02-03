@@ -106,6 +106,7 @@ MainPost.propTypes = {
     imageText: PropTypes.string.isRequired,
     linkText: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
+    link: PropTypes.string.isRequired,
   }).isRequired,
 };
 

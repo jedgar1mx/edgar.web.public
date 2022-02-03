@@ -1,6 +1,7 @@
 import * as React from "react";
 import Head from "next/head";
-import { Box, Container, Typography } from "@mui/material";
+import Link from "next/link";
+import { Breadcrumbs, Box, Container, Typography } from "@mui/material";
 import Header from "../page_sections/Header";
 import Footer from "../page_sections/Footer";
 
@@ -49,6 +50,17 @@ function About() {
       <Container maxWidth="lg" sx={{ minHeight: "90vh" }}>
         <Header title="Edgar Web" />
         <main>
+          <Breadcrumbs aria-label="breadcrumb"  sx={{ mt: 2 }}>
+            <Link href="/">
+              <a>Home</a>
+            </Link>
+            <Typography
+              sx={{ display: "flex", alignItems: "center" }}
+              color="text.primary"
+            >
+              About
+            </Typography>
+          </Breadcrumbs>
           <Typography variant="h3" component="h1" sx={{ mt: 4, mb: 2 }}>
             Hey!
           </Typography>

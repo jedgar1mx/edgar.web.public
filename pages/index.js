@@ -1,5 +1,6 @@
 import Head from "next/head";
 import Link from "next/link";
+import { useCallback, useState } from 'react';
 import {
   Box,
   Card,
@@ -12,6 +13,7 @@ import {
 import Header from "../page_sections/Header";
 import MainFeaturedPost from "../page_components/MainPost";
 import Footer from "../page_sections/Footer";
+import UserWindow from "../page_sections/UserWindow";
 
 const imageUrlFromPost = (post, assets) => {
   return assets?.find(
@@ -20,15 +22,22 @@ const imageUrlFromPost = (post, assets) => {
 };
 
 export default function Home({ posts }) {
+  const [size, setSize] = useState(null);
+
+  const callback = useCallback((size) => {
+    setSize(size);
+  }, []);
+  
   let image = imageUrlFromPost(posts.data[0], posts.included);
   let mainFeaturedPost = {
     title: posts.data[0].attributes.title,
     description: posts.data[0].attributes.body.summary,
     image: `http://data.jedgar1mx.com${image.attributes.uri.url}`,
     imageText: image.attributes.filename,
-    link: posts.data[0].id,
+    link: posts.data[0].attributes.field_alias,
     linkText: "Continue reading…",
   };
+
   return (
     <Box>
       <Head>
@@ -79,10 +88,12 @@ export default function Home({ posts }) {
       <Container maxWidth="lg" sx={{ minHeight: "90vh", mb: 2 }}>
         <Header title="Edgar Web" />
         <main>
+          {(size != null) ? <h1>{size}</h1> : <h1>No size found</h1>}
+          <UserWindow parentCallback={callback}></UserWindow>
           <MainFeaturedPost post={mainFeaturedPost} />
           <Grid container spacing={2}>
             {posts.data.slice(1).map((post) => (
-              <Link key={post.id} href={`/blog/${post.id}`} passHref>
+              <Link key={post.id} href={`/blog/${post.attributes.field_alias}`} passHref>
                 <Grid item xs={12} md={4} xl={3}>
                   <Card sx={{ minWidth: 275, borderRadius: 0 }}>
                     <CardActionArea>

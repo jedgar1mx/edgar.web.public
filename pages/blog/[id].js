@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Head from "next/head";
-import { Box, Typography, Container } from "@mui/material";
+import Link from "next/link";
+import { Breadcrumbs, Box, Typography, Container } from "@mui/material";
 import { Markup } from "interweave";
 import moment from "moment";
 import Header from "../../page_sections/Header";
@@ -26,10 +27,11 @@ const toBase64 = (str) =>
     : window.btoa(str);
 
 export default function Post({ post }) {
+
   return (
     <Box>
       <Head>
-        <title>Edgar Web | {post.data.attributes.title}</title>
+        <title>Edgar Web | {post.data[0].attributes.title}</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
         <link
           rel="apple-touch-icon"
@@ -52,32 +54,46 @@ export default function Post({ post }) {
         <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5" />
         <meta name="msapplication-TileColor" content="#da532c" />
         <meta name="theme-color" content="#ffffff"></meta>
-        <meta name="description" content={post.data.attributes.body.summary} />
+        <meta name="description" content={post.data[0].attributes.body.summary} />
 
         <meta property="og:type" content="website" />
-        <meta property="og:title" content={post.data.attributes.title} />
+        <meta property="og:title" content={post.data[0].attributes.title} />
         <meta property="og:image" content="/Logo.png" />
         <meta
           property="og:description"
-          content={post.data.attributes.body.summary}
+          content={post.data[0].attributes.body.summary}
         />
 
         <meta property="twitter:card" content="summary_large_image" />
-        <meta property="twitter:title" content={post.data.attributes.title} />
+        <meta property="twitter:title" content={post.data[0].attributes.title} />
         <meta property="twitter:image" content="/Logo.png" />
         <meta
           property="twitter:description"
-          content={post.data.attributes.body.summary}
+          content={post.data[0].attributes.body.summary}
         />
       </Head>
       <Container maxWidth="lg" sx={{ minHeight: "90vh" }}>
         <Header title="Edgar Web" />
         <main>
+          <Breadcrumbs Breadcrumbs aria-label="breadcrumb"  sx={{ mt: 2 }}>
+            <Link href="/">
+              <a>Home</a>
+            </Link>
+            <Link href="/blog">
+              <a>Blog</a>
+            </Link>
+            <Typography
+              sx={{ display: "flex", alignItems: "center" }}
+              color="text.primary"
+            >
+              Article
+            </Typography>
+          </Breadcrumbs>
           <Box
             sx={{ mt: 2, position: "relative", width: "100%", height: "25em" }}
           >
             <Image
-              src={`http://data.jedgar1mx.com${post.included[0].attributes.uri.url}`}
+              src={`https://data.jedgar1mx.com${post.included[0].attributes.uri.url}`}
               alt={post.included[0].attributes.filename}
               layout="fill"
               placeholder="blur"
@@ -87,13 +103,13 @@ export default function Post({ post }) {
             />
           </Box>
           <Typography variant="h4" component="h1">
-            {post.data.attributes.title}
+            {post.data[0].attributes.title}
           </Typography>
           <Typography variant="caption" component="div">
             {post.included[1].attributes.display_name} on{" "}
-            {moment(post.data.attributes.created).format("MMM Do, YYYY")}
+            {moment(post.data[0].attributes.created).format("MMM Do, YYYY")}
           </Typography>
-          <Markup content={post.data.attributes.body.processed} />
+          <Markup content={post.data[0].attributes.body.processed} />
         </main>
       </Container>
       <Footer />
@@ -104,13 +120,13 @@ export default function Post({ post }) {
 // This function gets called at build time
 export async function getStaticPaths() {
   // Call an external API endpoint to get posts
-  const res = await fetch("http://data.jedgar1mx.com/jsonapi/node/article/");
+  const res = await fetch("https://data.jedgar1mx.com/jsonapi/node/article/");
   const posts = await res.json();
 
   // Get the paths we want to pre-render based on posts
   const paths = posts.data.map((post) => ({
     params: {
-      id: post.id,
+      id: post.attributes.field_alias,
     },
   }));
 
@@ -123,8 +139,9 @@ export async function getStaticPaths() {
 export async function getStaticProps({ params }) {
   // params contains the post `id`.
   // If the route is like /posts/1, then params.id is 1
+
   const res = await fetch(
-    `http://data.jedgar1mx.com/jsonapi/node/article/${params.id}?include=field_image,uid`
+    `https://data.jedgar1mx.com/jsonapi/node/article?filter[field_alias]=${params.id}&include=field_image,uid`
   );
   const post = await res.json();
   // Pass post data to the page via props
