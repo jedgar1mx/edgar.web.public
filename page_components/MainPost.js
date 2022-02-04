@@ -19,6 +19,100 @@ const shimmer = (w, h) => `
   <animate xlink:href="#r" attributeName="x" from="-${w}" to="${w}" dur="1s" repeatCount="indefinite"  />
 </svg>`;
 
+const buildDesktop = (post) => {
+  return (
+    <Grid container alignItems="stretch">
+      <Grid
+        item
+        md={5}
+        sx={{ position: "relative", width: "100%", minHeight: 400 }}
+      >
+        <Image
+          src={post.image}
+          alt={post.imageText}
+          layout="fill"
+          placeholder="blur"
+          blurDataURL={`data:image/svg+xml;base64,${toBase64(
+            shimmer(700, 475)
+          )}`}
+        />
+      </Grid>
+      <Grid item md={7}>
+        <Box
+          className={styles.HoverEffect}
+          sx={{
+            position: "relative",
+            p: { xs: 3, md: 6 },
+            height: "100%",
+          }}
+        >
+          <Typography
+            component="h1"
+            variant="h4"
+            color="inherit"
+            gutterBottom
+          >
+            {post.title}
+          </Typography>
+          <Typography variant="h6" color="inherit" paragraph>
+            {post.description}
+          </Typography>
+          <Typography variant="body1" color="secondary.main">
+            {post.linkText}
+          </Typography>
+        </Box>
+      </Grid>
+    </Grid>
+  );
+}
+
+const buildMobile = (post) => {
+  return (
+    <Grid container alignItems="stretch">
+      <Grid
+        item
+        md={5}
+        sx={{ position: "relative", width: "100%", minHeight: 300 }}
+      >
+        <Image
+          src={post.image}
+          alt={post.imageText}
+          layout="fill"
+          placeholder="blur"
+          blurDataURL={`data:image/svg+xml;base64,${toBase64(
+            shimmer(700, 475)
+          )}`}
+        />
+      </Grid>
+      <Grid item md={7}>
+        <Box
+          className={styles.HoverEffect}
+          sx={{
+            position: "relative",
+            p: { xs: 3 },
+            height: "100%",
+          }}
+        >
+          <Typography
+            component="h1"
+            variant="h4"
+            color="inherit"
+            gutterBottom
+          >
+            {post.title}
+          </Typography>
+          <Typography variant="h6" color="inherit" paragraph>
+            {post.description}
+          </Typography>
+          <Typography variant="body1" color="secondary.main">
+            {post.linkText}
+          </Typography>
+        </Box>
+      </Grid>
+    </Grid>
+  );
+}
+
 const toBase64 = (str) =>
   typeof window === "undefined"
     ? Buffer.from(str).toString("base64")
@@ -51,48 +145,7 @@ function MainPost(props) {
 
       <Link href={`/blog/${post.link}`} passHref>
         <a className={styles.MainPost}>
-          <Grid container alignItems="stretch">
-            <Grid
-              item
-              md={5}
-              sx={{ position: "relative", width: "100%", minHeight: 300 }}
-            >
-              <Image
-                src={post.image}
-                alt={post.imageText}
-                layout="fill"
-                placeholder="blur"
-                blurDataURL={`data:image/svg+xml;base64,${toBase64(
-                  shimmer(700, 475)
-                )}`}
-              />
-            </Grid>
-            <Grid item md={7}>
-              <Box
-                className={styles.HoverEffect}
-                sx={{
-                  position: "relative",
-                  p: { xs: 3, md: 6 },
-                  height: "100%",
-                }}
-              >
-                <Typography
-                  component="h1"
-                  variant="h4"
-                  color="inherit"
-                  gutterBottom
-                >
-                  {post.title}
-                </Typography>
-                <Typography variant="h6" color="inherit" paragraph>
-                  {post.description}
-                </Typography>
-                <Typography variant="body1" color="secondary.main">
-                  {post.linkText}
-                </Typography>
-              </Box>
-            </Grid>
-          </Grid>
+          {(post.width > 500) ? buildDesktop(post) : buildMobile(post)}
         </a>
       </Link>
     </Paper>

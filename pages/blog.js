@@ -1,5 +1,6 @@
 import * as React from "react";
 import Head from "next/head";
+import { useEffect, useState } from 'react';
 import {
   Breadcrumbs,
   Box,
@@ -16,6 +17,11 @@ import Header from "../page_sections/Header";
 import Footer from "../page_sections/Footer";
 
 function Blog({ posts }) {
+  const [width, setWidth] = useState(0);
+  useEffect(() => {
+    setWidth(document.body.clientWidth);
+  });
+
   return (
     <Box>
       <Head>
@@ -55,7 +61,7 @@ function Blog({ posts }) {
         <meta property="twitter:description" content="The Idea Vault." />
       </Head>
       <Container maxWidth="lg" sx={{ minHeight: "90vh", mb: 2 }}>
-        <Header title="Edgar Web" />
+        <Header title="Edgar Web" width={width} />
         <main>
           <Breadcrumbs aria-label="breadcrumb"  sx={{ mt: 2 }}>
             <Link href="/">

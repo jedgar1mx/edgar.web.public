@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Head from "next/head";
 import Link from "next/link";
+import { useEffect, useState } from 'react';
 import { Breadcrumbs, Box, Typography, Container } from "@mui/material";
 import { Markup } from "interweave";
 import moment from "moment";
@@ -26,7 +27,47 @@ const toBase64 = (str) =>
     ? Buffer.from(str).toString("base64")
     : window.btoa(str);
 
+const buildDesktop = (post) => {
+  return (
+    <Box
+      sx={{ mt: 2, position: "relative", width: "100%", height: "35em" }}
+    >
+      <Image
+        src={`https://data.jedgar1mx.com${post.included[0].attributes.uri.url}`}
+        alt={post.included[0].attributes.filename}
+        layout="fill"
+        placeholder="blur"
+        blurDataURL={`data:image/svg+xml;base64,${toBase64(
+          shimmer(700, 475)
+        )}`}
+      />
+    </Box>
+  );
+}
+
+const buildMobile = (post) => {
+  return (
+    <Box
+      sx={{ mt: 2, position: "relative", width: "100%", height: "25em" }}
+    >
+      <Image
+        src={`https://data.jedgar1mx.com${post.included[0].attributes.uri.url}`}
+        alt={post.included[0].attributes.filename}
+        layout="fill"
+        placeholder="blur"
+        blurDataURL={`data:image/svg+xml;base64,${toBase64(
+          shimmer(700, 475)
+        )}`}
+      />
+    </Box>
+  );
+}
+
 export default function Post({ post }) {
+  const [width, setWidth] = useState(0);
+  useEffect(() => {
+    setWidth(document.body.clientWidth);
+  });
 
   return (
     <Box>
@@ -73,9 +114,9 @@ export default function Post({ post }) {
         />
       </Head>
       <Container maxWidth="lg" sx={{ minHeight: "90vh" }}>
-        <Header title="Edgar Web" />
+        <Header title="Edgar Web" width={width} />
         <main>
-          <Breadcrumbs Breadcrumbs aria-label="breadcrumb"  sx={{ mt: 2 }}>
+          <Breadcrumbs aria-label="breadcrumb"  sx={{ mt: 2 }}>
             <Link href="/">
               <a>Home</a>
             </Link>
@@ -89,19 +130,7 @@ export default function Post({ post }) {
               Article
             </Typography>
           </Breadcrumbs>
-          <Box
-            sx={{ mt: 2, position: "relative", width: "100%", height: "25em" }}
-          >
-            <Image
-              src={`https://data.jedgar1mx.com${post.included[0].attributes.uri.url}`}
-              alt={post.included[0].attributes.filename}
-              layout="fill"
-              placeholder="blur"
-              blurDataURL={`data:image/svg+xml;base64,${toBase64(
-                shimmer(700, 475)
-              )}`}
-            />
-          </Box>
+          {(width > 500) ? buildDesktop(post) : buildMobile(post)}
           <Typography variant="h4" component="h1">
             {post.data[0].attributes.title}
           </Typography>

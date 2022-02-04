@@ -1,11 +1,17 @@
 import * as React from "react";
 import Head from "next/head";
 import Link from "next/link";
+import { useEffect, useState } from 'react';
 import { Breadcrumbs, Box, Container, Typography } from "@mui/material";
 import Header from "../page_sections/Header";
 import Footer from "../page_sections/Footer";
 
 function About() {
+  const [width, setWidth] = useState(0);
+  useEffect(() => {
+    setWidth(document.body.clientWidth);
+  });
+
   return (
     <Box>
       <Head>
@@ -48,7 +54,7 @@ function About() {
         />
       </Head>
       <Container maxWidth="lg" sx={{ minHeight: "90vh" }}>
-        <Header title="Edgar Web" />
+        <Header title="Edgar Web" width={width} />
         <main>
           <Breadcrumbs aria-label="breadcrumb"  sx={{ mt: 2 }}>
             <Link href="/">
