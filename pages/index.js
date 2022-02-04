@@ -1,5 +1,6 @@
 import Head from "next/head";
 import Link from "next/link";
+import { useEffect, useState } from 'react';
 import {
   Box,
   Card,
@@ -20,15 +21,23 @@ const imageUrlFromPost = (post, assets) => {
 };
 
 export default function Home({ posts }) {
+
+  const [width, setWidth] = useState(0);
+  useEffect(() => {
+    setWidth(document.body.clientWidth);
+  });
+  
   let image = imageUrlFromPost(posts.data[0], posts.included);
   let mainFeaturedPost = {
     title: posts.data[0].attributes.title,
     description: posts.data[0].attributes.body.summary,
     image: `http://data.jedgar1mx.com${image.attributes.uri.url}`,
     imageText: image.attributes.filename,
-    link: posts.data[0].id,
+    link: posts.data[0].attributes.field_alias,
     linkText: "Continue reading…",
+    width: width,
   };
+
   return (
     <Box>
       <Head>
@@ -77,12 +86,12 @@ export default function Home({ posts }) {
         />
       </Head>
       <Container maxWidth="lg" sx={{ minHeight: "90vh", mb: 2 }}>
-        <Header title="Edgar Web" />
+        <Header title="Edgar Web" width={width} />
         <main>
           <MainFeaturedPost post={mainFeaturedPost} />
           <Grid container spacing={2}>
             {posts.data.slice(1).map((post) => (
-              <Link key={post.id} href={`/blog/${post.id}`} passHref>
+              <Link key={post.id} href={`/blog/${post.attributes.field_alias}`} passHref>
                 <Grid item xs={12} md={4} xl={3}>
                   <Card sx={{ minWidth: 275, borderRadius: 0 }}>
                     <CardActionArea>

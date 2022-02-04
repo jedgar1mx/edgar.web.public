@@ -1,6 +1,8 @@
 import * as React from "react";
 import Head from "next/head";
+import { useEffect, useState } from 'react';
 import {
+  Breadcrumbs,
   Box,
   Card,
   CardActionArea,
@@ -15,6 +17,11 @@ import Header from "../page_sections/Header";
 import Footer from "../page_sections/Footer";
 
 function Blog({ posts }) {
+  const [width, setWidth] = useState(0);
+  useEffect(() => {
+    setWidth(document.body.clientWidth);
+  });
+
   return (
     <Box>
       <Head>
@@ -54,14 +61,25 @@ function Blog({ posts }) {
         <meta property="twitter:description" content="The Idea Vault." />
       </Head>
       <Container maxWidth="lg" sx={{ minHeight: "90vh", mb: 2 }}>
-        <Header title="Edgar Web" />
+        <Header title="Edgar Web" width={width} />
         <main>
+          <Breadcrumbs aria-label="breadcrumb"  sx={{ mt: 2 }}>
+            <Link href="/">
+              <a>Home</a>
+            </Link>
+            <Typography
+              sx={{ display: "flex", alignItems: "center" }}
+              color="text.primary"
+            >
+              Blog
+            </Typography>
+          </Breadcrumbs>
           <Typography variant="h4" component="h1" sx={{ mt: 2, mb: 2 }}>
             Past Posts
           </Typography>
           <Grid container spacing={2} alignItems="stretch">
             {posts.data.map((post) => (
-              <Link key={post.id} href={`/blog/${post.id}`} passHref>
+              <Link key={post.id} href={`/blog/${post.attributes.field_alias}`} passHref>
                 <Grid item xs={12} md={4} xl={3}>
                   <Card sx={{ minWidth: 275, borderRadius: 0 }}>
                     <CardActionArea>
