@@ -170,7 +170,7 @@ export async function getStaticProps({ params }) {
   // If the route is like /posts/1, then params.id is 1
 
   const res = await fetch(
-    `https://data.jedgar1mx.com/jsonapi/node/article?filter[field_alias]=${params.id}&include=field_image,uid`
+    `https://data.jedgar1mx.com/jsonapi/node/article?filter[field_alias]=${params.id}&include=field_image,uid,field_tags`
   );
   const post = await res.json();
   // Pass post data to the page via props

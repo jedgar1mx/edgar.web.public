@@ -1,4 +1,6 @@
 import Script from 'next/script'
+import { useState  } from 'react'
+import { blankFilters, FilterContext } from "../lib/filterContext"
 import { createTheme, ThemeProvider } from "@mui/material/styles"
 import CssBaseline from "@mui/material/CssBaseline"
 import "../styles/globals.css"
@@ -36,6 +38,9 @@ const theme = createTheme({
 });
 
 function EdgarWeb({ Component, pageProps }) {
+  const [currentFilters] = useState(() => {
+    return blankFilters()
+  })
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
@@ -52,7 +57,9 @@ function EdgarWeb({ Component, pageProps }) {
           gtag('config', '${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}');
         `}
       </Script>
-      <Component {...pageProps} />
+      <FilterContext value={{ currentFilters: currentFilters }}>
+        <Component {...pageProps} />
+      </FilterContext>
     </ThemeProvider>
   );
 }
