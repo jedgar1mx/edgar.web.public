@@ -2,9 +2,10 @@ import Image from "next/image";
 import Head from "next/head";
 import Link from "next/link";
 import { useEffect, useState } from 'react';
-import { Breadcrumbs, Box, Typography, Container } from "@mui/material";
+import { Breadcrumbs, Box, Container, Grid, Typography } from "@mui/material";
 import { Markup } from "interweave";
 import moment from "moment";
+import Tags from "../../page_components/Tags";
 import Header from "../../page_sections/Header";
 import Footer from "../../page_sections/Footer";
 
@@ -134,10 +135,17 @@ export default function Post({ post }) {
           <Typography variant="h4" component="h1">
             {post.data[0].attributes.title}
           </Typography>
-          <Typography variant="caption" component="div">
-            {post.included[1].attributes.display_name} on{" "}
-            {moment(post.data[0].attributes.created).format("MMM Do, YYYY")}
-          </Typography>
+          <Grid container spacing={2} alignItems="center">
+            <Grid item xs={12} md={2} xl={2}>
+              <Typography variant="caption" component="div">
+                {post.included[1].attributes.display_name} on{" "}
+                {moment(post.data[0].attributes.created).format("MMM Do, YYYY")}
+              </Typography> 
+            </Grid>
+            <Grid item xs={12} md={10} xl={10}>
+              <Tags tags={post.included.slice(2)}></Tags>
+            </Grid>
+          </Grid>
           <Markup content={post.data[0].attributes.body.processed} />
         </main>
       </Container>

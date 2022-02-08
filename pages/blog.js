@@ -15,8 +15,9 @@ import {
 import Link from "next/link";
 import Header from "../page_sections/Header";
 import Footer from "../page_sections/Footer";
+import FilterForm from "../page_components/FilterForm";
 
-function Blog({ posts }) {
+function Blog({ posts, filter, tags }) {
   const [width, setWidth] = useState(0);
   useEffect(() => {
     setWidth(document.body.clientWidth);
@@ -77,6 +78,7 @@ function Blog({ posts }) {
           <Typography variant="h4" component="h1" sx={{ mt: 2, mb: 2 }}>
             Past Posts
           </Typography>
+          <FilterForm filter={filter} tags={tags}></FilterForm>
           <Grid container spacing={2} alignItems="stretch">
             {posts.data.map((post) => (
               <Link key={post.id} href={`/blog/${post.attributes.field_alias}`} passHref>
@@ -116,22 +118,32 @@ function Blog({ posts }) {
   );
 }
 
-// This function gets called at build time
-export async function getStaticProps() {
-  // Call an external API endpoint to get posts
-  const res = await fetch(
-    "http://data.jedgar1mx.com/jsonapi/node/article?page[limit]=12&sort=-created"
-  );
-  const posts = await res.json();
+export async function getServerSideProps({ query }) {
+  let URL = null;
+  const filter = (query.tag != undefined) ? query.tag : null;
+  if (filter) {
+    URL = `https://data.jedgar1mx.com/jsonapi/node/article?filter[field_tags.meta.drupal_internal__target_id]=${query.tag}&include=field_image,uid,field_tags`;
+  }else {
+    URL = "http://data.jedgar1mx.com/jsonapi/node/article?page[limit]=12&sort=-created";
+  }
+  const tagRes = await fetch("https://data.jedgar1mx.com/jsonapi/taxonomy_term/tags")
+  const tags = await tagRes.json()
+  const res = await fetch(URL)
+  const posts = await res.json()
 
-  // By returning { props: { posts } }, the Blog component
-  // will receive `posts` as a prop at build time
+  if (!posts) {
+    return {
+      notFound: true,
+    }
+  }
+
   return {
-    props: {
+    props: { 
       posts,
-      revalidate: 60,
-    },
-  };
+      filter,
+      tags,
+    }, // will be passed to the page component as props
+  }
 }
 
 export default Blog;
