@@ -19,7 +19,6 @@ function Tag(tag) {
 
 function Tags(props) {
   const { tags } = props;
-  console.log(tags);
 
   return (
     <section>
