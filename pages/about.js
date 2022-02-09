@@ -10,7 +10,7 @@ function About() {
   const [width, setWidth] = useState(0);
   useEffect(() => {
     setWidth(document.body.clientWidth);
-  });
+  }, []);
 
   return (
     <Box>
