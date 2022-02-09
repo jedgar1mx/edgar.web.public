@@ -25,7 +25,7 @@ export default function Home({ posts }) {
   const [width, setWidth] = useState(0);
   useEffect(() => {
     setWidth(document.body.clientWidth);
-  });
+  }, []);
   
   let image = imageUrlFromPost(posts.data[0], posts.included);
   let mainFeaturedPost = {

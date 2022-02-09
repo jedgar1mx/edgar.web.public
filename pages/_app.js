@@ -36,6 +36,7 @@ const theme = createTheme({
 });
 
 function EdgarWeb({ Component, pageProps }) {
+
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
