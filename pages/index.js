@@ -131,7 +131,7 @@ export default function Home({ posts }) {
 export async function getStaticProps() {
   // Call an external API endpoint to get posts
   const res = await fetch(
-    "http://data.jedgar1mx.com/jsonapi/node/article?page[limit]=5&include=field_image,uid&sort=-created"
+    "http://data.jedgar1mx.com/jsonapi/node/article?page[limit]=5&filter[status]=1&include=field_image,uid&sort=-created"
   );
   const posts = await res.json();
 

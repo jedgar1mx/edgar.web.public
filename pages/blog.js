@@ -122,9 +122,9 @@ export async function getServerSideProps({ query }) {
   let URL = null;
   const filter = (query.tag != undefined) ? query.tag : null;
   if (filter) {
-    URL = `https://data.jedgar1mx.com/jsonapi/node/article?filter[field_tags.meta.drupal_internal__target_id]=${query.tag}&include=field_image,uid,field_tags`;
+    URL = `https://data.jedgar1mx.com/jsonapi/node/article?filter[field_tags.meta.drupal_internal__target_id]=${query.tag}&filter[status]=1&include=field_image,uid,field_tags`;
   }else {
-    URL = "http://data.jedgar1mx.com/jsonapi/node/article?page[limit]=12&sort=-created";
+    URL = "http://data.jedgar1mx.com/jsonapi/node/article?page[limit]=12&filter[status]=1&sort=-created";
   }
   const tagRes = await fetch("https://data.jedgar1mx.com/jsonapi/taxonomy_term/tags")
   const tags = await tagRes.json()
